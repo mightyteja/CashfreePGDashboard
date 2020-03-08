@@ -23,11 +23,11 @@ class CashFreeController extends Controller
     {
         $datepicker_from = Carbon::createFromFormat('d-m-Y', $request->datepicker_from)->format('Y-m-d');
         $datepicker_to = Carbon::createFromFormat('d-m-Y', $request->datepicker_to)->format('Y-m-d');
-        $cashfree_app_id = config('CASHFREE_MARKETSETTLEMENT_CLIENTID');
-        $cashfree_secret = config('CASHFREE_MARKETSETTLEMENT_CLIENTSECRET');
+        $cashfree_app_id = config('cashfree.CASHFREE_APP_ID');
+        $cashfree_secret = config('cashfree.CASHFREE_SECRET');
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => config('CASHFREE_SETTLEMENTS_URL'),
+            CURLOPT_URL => config('cashfree.CASHFREE_SETTLEMENTS_URL'),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -49,11 +49,52 @@ class CashFreeController extends Controller
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
-            dd($response);
+
             echo $response;
+            return view('cashfree::cashfree.settlement.settlement-result')->with('response', json_decode($response, true));
         }
     }
 
+
+    public function settlementSingle()
+    {
+        return view('cashfree::cashfree.settlement.settlement-single');
+    }
+
+    public function settlementSingleFetch(Request $request)
+    {
+        $settlement_id = $request['id'];
+        $cashfree_app_id = config('cashfree.CASHFREE_APP_ID');
+        $cashfree_secret = config('cashfree.CASHFREE_SECRET');
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://test.cashfree.com/api/v1/settlement",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "appId=$cashfree_app_id&secretKey=$cashfree_secret&settlementId=$settlement_id&lastId=&count=",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache",
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+            return view('cashfree::cashfree.settlement.settlement-single-fetch')->with('response', json_decode($response, true));
+        }
+    }
 
     public function paymentOrderstatus()
     {

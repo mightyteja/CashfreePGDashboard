@@ -6,9 +6,10 @@ Route::group(['prefix' => 'cashfree', 'namespace' => 'Tesmachino\Cashfree\Http\C
 
     //Cashfree 
     //Settlement
-    Route::get('settlement', 'CashFreeController@settlement');
+    Route::get('settlement', 'CashFreeController@settlement')->name('settlement');
     Route::post('settlement-request', 'CashFreeController@settlementRequest')->name('settlement-request');
-    Route::get('settlement-result', 'CashFreeController@settlementResult');
+    Route::get('settlement-single', 'CashFreeController@settlementSingle')->name('settlement-single');
+    Route::post('settlement-single', 'CashFreeController@settlementSingleFetch')->name('settlement-single-fetch');
 
     Route::get('transaction-status', 'CashFreeController@transactions')->name('getpaymentstatus');
     Route::post('transaction-status', 'CashFreeController@transactionRequest')->name('transaction-request');
