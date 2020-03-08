@@ -1,0 +1,23 @@
+{
+    "name": "tesmachino/cashfree",
+    "description": "UI for Cashfree - Usage RestAPI",
+    "license": "MIT",
+    "keywords": [
+        "cashfree",
+        "Payment Gateway",
+        "Rest API"
+    ],
+    "authors": [
+        {
+            "name": "tesmachino",
+            "email": "tesmachino@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Tesmachino\\Cashfree\\": "src/"
+        }
+    }
+}
