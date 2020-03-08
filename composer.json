@@ -19,5 +19,12 @@
         "psr-4": {
             "Tesmachino\\Cashfree\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tesmachino\\Cashfree\\ServiceProvider"
+            ]
+        }
     }
 }
