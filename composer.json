@@ -3,9 +3,12 @@
     "description": "UI for Cashfree - Usage RestAPI",
     "license": "MIT",
     "keywords": [
-        "cashfree",
+        "Cashfree",
+        "Admin DashBoard",
         "Payment Gateway",
-        "Rest API"
+        "Rest API",
+        "PHP",
+        "Laravel"
     ],
     "authors": [
         {
