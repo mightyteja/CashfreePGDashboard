@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tesmachino\\Cashfree\\ServiceProvider"
+                "Tesmachino\\Cashfree\\CashfreeServiceProvider"
             ]
         }
     }
